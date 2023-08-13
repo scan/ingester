@@ -34,10 +34,14 @@
     <DirectoryChooser name="rawTargetDir">Destination (RAW)</DirectoryChooser>
     <DirectoryChooser name="jpegTargetDir">Destination (JPEG)</DirectoryChooser>
 
-    <div class="form-control">
-      <button class="btn btn-primary w-full" class:btn-disabled={disabled} {disabled}
-        >Start Ingesting!</button
-      >
+    <div class="form-control my-5">
+      <button class="btn btn-primary w-full" class:btn-disabled={disabled} {disabled}>
+        {#if disabled}
+          <span class="loading loading-dots mx-2" />
+        {:else}
+          Start Ingesting!
+        {/if}
+      </button>
     </div>
   </form>
 </main>
