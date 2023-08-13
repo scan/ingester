@@ -1,6 +1,10 @@
 #[derive(Clone, serde::Serialize)]
 pub struct CopyProgressEvent {
     pub file_name: String,
-    pub index: usize,
-    pub total: usize,
 }
+
+#[derive(Clone, Copy, serde::Serialize)]
+pub struct CopyStartEvent;
+
+#[derive(Clone, Copy, serde::Serialize)]
+pub struct CopyFinishedEvent;

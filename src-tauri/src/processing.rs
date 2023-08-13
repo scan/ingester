@@ -67,9 +67,7 @@ async fn process_file(
     window.emit(
         "copy_progress_done",
         CopyProgressEvent {
-            file_name: final_path.as_os_str().to_str().unwrap().to_owned(),
-            index: 0,
-            total: 0,
+            file_name: final_path.file_name().unwrap().to_str().unwrap().to_owned(),
         },
     );
 

@@ -2,13 +2,15 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod error;
-mod processing;
 mod event;
+mod processing;
 
 use futures::stream::StreamExt;
 use std::fs;
 
 use error::CopyError;
+
+use crate::event::{CopyFinishedEvent, CopyStartEvent};
 
 #[tauri::command]
 fn directory_accessible(path: &str) -> bool {
@@ -27,6 +29,7 @@ async fn copy_files(
     recursive: bool,
 ) -> Result<bool, CopyError> {
     log::info!("starting the copying");
+    window.emit("copy_start", CopyStartEvent);
 
     processing::copy_directory(
         window.clone(),
@@ -36,7 +39,7 @@ async fn copy_files(
         recursive,
     )?
     .chain(processing::copy_directory(
-        window,
+        window.clone(),
         source_path,
         jpeg_path,
         vec![
@@ -54,6 +57,7 @@ async fn copy_files(
     .await;
 
     log::info!("done with copying files");
+    window.emit("copy_finished", CopyFinishedEvent);
 
     Ok(true)
 }
