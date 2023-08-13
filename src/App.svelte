@@ -14,7 +14,7 @@
     if (validated.success === false) {
       console.log(validated.error);
     } else {
-      copyFiles(validated.data);
+      await copyFiles(validated.data);
     }
 
     disabled = false;

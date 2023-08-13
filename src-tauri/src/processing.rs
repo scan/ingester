@@ -1,12 +1,13 @@
 use chrono::{DateTime, Datelike, Month, Utc};
-use futures::{stream, Future, FutureExt, StreamExt};
+use futures::{stream, FutureExt, StreamExt};
 use num_traits::cast::FromPrimitive;
 use std::path::{Path, PathBuf};
 use tokio::fs;
 
-use crate::error;
+use crate::{error, event::CopyProgressEvent};
 
 async fn process_file(
+    window: tauri::Window,
     destination_path: impl AsRef<Path>,
     original_path: PathBuf,
 ) -> Result<(), error::CopyError> {
@@ -63,10 +64,20 @@ async fn process_file(
         }
     }
 
+    window.emit(
+        "copy_progress_done",
+        CopyProgressEvent {
+            file_name: final_path.as_os_str().to_str().unwrap().to_owned(),
+            index: 0,
+            total: 0,
+        },
+    );
+
     Ok(())
 }
 
 pub fn copy_directory(
+    window: tauri::Window,
     source_dir: impl AsRef<Path>,
     dest_dir: impl AsRef<Path>,
     file_extensions: Vec<String>,
@@ -93,7 +104,7 @@ pub fn copy_directory(
 
     let dest_dir = PathBuf::from(dest_dir.as_ref());
     Ok(stream::iter(file_paths)
-        .map(move |path| process_file(dest_dir.clone(), path))
+        .map(move |path| process_file(window.clone(), dest_dir.clone(), path))
         .buffer_unordered(6)
         .for_each(|res| async {
             if let Err(e) = res {

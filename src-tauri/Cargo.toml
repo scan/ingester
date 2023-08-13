@@ -13,16 +13,22 @@ edition = "2021"
 tauri-build = { version = "1.4", features = [] }
 
 [dependencies]
-tauri = { version = "1.4", features = [ "path-all", "dialog-confirm", "dialog-open", "shell-open"] }
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-globwalk = "0.8.1"
 chrono = "0.4.26"
+futures = "0.3.28"
+globwalk = "0.8.1"
 log = "0.4.19"
 num-traits = "0.2.16"
-tokio = { version = "1.29.1", features = ["fs"] }
-futures = "0.3.28"
+pretty_env_logger = "0.5.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tauri = { version = "1.4", features = [
+    "path-all",
+    "dialog-confirm",
+    "dialog-open",
+    "shell-open",
+] }
 thiserror = "1.0.44"
+tokio = { version = "1.29.1", features = ["fs"] }
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem

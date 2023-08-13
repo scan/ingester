@@ -3,6 +3,7 @@
 
 mod error;
 mod processing;
+mod event;
 
 use futures::stream::StreamExt;
 use std::fs;
@@ -19,18 +20,23 @@ fn directory_accessible(path: &str) -> bool {
 
 #[tauri::command]
 async fn copy_files(
+    window: tauri::Window,
     source_path: &str,
     raw_path: &str,
     jpeg_path: &str,
     recursive: bool,
 ) -> Result<bool, CopyError> {
+    log::info!("starting the copying");
+
     processing::copy_directory(
+        window.clone(),
         source_path,
         raw_path,
         vec!["dng".to_owned(), "arw".to_owned(), "raf".to_owned()],
         recursive,
     )?
     .chain(processing::copy_directory(
+        window,
         source_path,
         jpeg_path,
         vec![
@@ -47,10 +53,14 @@ async fn copy_files(
     .collect::<Vec<_>>()
     .await;
 
+    log::info!("done with copying files");
+
     Ok(true)
 }
 
 fn main() {
+    pretty_env_logger::init();
+
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![directory_accessible, copy_files])
         .run(tauri::generate_context!())
