@@ -6,6 +6,7 @@ const copyFiles = (data: IngestFormData) =>
     sourcePath: data.sourceDir,
     rawPath: data.rawTargetDir,
     jpegPath: data.jpegTargetDir,
+    moviePath: data.movieTargetDir,
     recursive: data.recursive,
   });
 

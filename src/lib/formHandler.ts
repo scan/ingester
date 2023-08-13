@@ -9,6 +9,7 @@ const schema = zfd.formData({
   sourceDir: zfd.text().refine(checkValidDirectory, { message: 'Invalid directory' }),
   rawTargetDir: zfd.text().refine(checkValidDirectory, { message: 'Invalid directory' }),
   jpegTargetDir: zfd.text().refine(checkValidDirectory, { message: 'Invalid directory' }),
+  movieTargetDir: zfd.text().refine(checkValidDirectory, { message: 'Invalid directory' }),
   recursive: zfd.checkbox(),
 });
 

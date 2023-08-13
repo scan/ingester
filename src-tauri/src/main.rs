@@ -26,6 +26,7 @@ async fn copy_files(
     source_path: &str,
     raw_path: &str,
     jpeg_path: &str,
+    movie_path: &str,
     recursive: bool,
 ) -> Result<bool, CopyError> {
     log::info!("starting the copying");
@@ -50,6 +51,17 @@ async fn copy_files(
             "png".to_owned(),
             "tif".to_owned(),
             "tiff".to_owned(),
+        ],
+        recursive,
+    )?)
+    .chain(processing::copy_directory(
+        window.clone(),
+        source_path,
+        movie_path,
+        vec![
+            "mp4".to_owned(),
+            "mov".to_owned(),
+            "avi".to_owned(),
         ],
         recursive,
     )?)
