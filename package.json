@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "format": "prettier --write .",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "bundle": "tauri build -t universal-apple-darwin -b dmg"
   },
   "devDependencies": {
     "@fontsource/open-sans": "5.0.4",
