@@ -64,12 +64,14 @@ async fn process_file(
         }
     }
 
-    window.emit(
+    if let Err(err) = window.emit(
         "copy_progress_done",
         CopyProgressEvent {
             file_name: final_path.file_name().unwrap().to_str().unwrap().to_owned(),
         },
-    );
+    ) {
+        log::error!("failed to emit copy_progress_done event: {}", err);
+    }
 
     Ok(())
 }

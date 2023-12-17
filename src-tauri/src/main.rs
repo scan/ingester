@@ -30,7 +30,9 @@ async fn copy_files(
     recursive: bool,
 ) -> Result<bool, CopyError> {
     log::info!("starting the copying");
-    window.emit("copy_start", CopyStartEvent);
+    if let Err(err) = window.emit("copy_start", CopyStartEvent) {
+        log::error!("failed to emit copy_start event: {}", err);
+    }
 
     processing::copy_directory(
         window.clone(),
@@ -69,7 +71,9 @@ async fn copy_files(
     .await;
 
     log::info!("done with copying files");
-    window.emit("copy_finished", CopyFinishedEvent);
+    if let Err(err) = window.emit("copy_finished", CopyFinishedEvent) {
+        log::error!("failed to emit copy_finished event: {}", err);
+    }
 
     Ok(true)
 }
