@@ -28,7 +28,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.tauri.dev",
+      "identifier": "net.redpandacoding.photos.ingester",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -44,9 +44,9 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "ingester",
-        "width": 800,
-        "height": 600
+        "title": "Photo Ingester",
+        "width": 1280,
+        "height": 720
       }
     ]
   }
