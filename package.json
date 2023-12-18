@@ -13,11 +13,12 @@
     "bundle": "tauri build -t universal-apple-darwin -b dmg"
   },
   "devDependencies": {
-    "@fontsource/open-sans": "5.0.4",
+    "@fontsource/open-sans": "5.0.20",
+    "@fontsource/fira-mono": "5.0.8",
     "@sveltejs/vite-plugin-svelte": "2.4.2",
     "@tailwindcss/forms": "0.5.3",
-    "@tauri-apps/api": "1.4.0",
-    "@tauri-apps/cli": "1.4.0",
+    "@tauri-apps/api": "1.5.2",
+    "@tauri-apps/cli": "1.5.5",
     "@tsconfig/svelte": "5.0.0",
     "@types/node": "18.7.10",
     "autoprefixer": "10.4.14",
