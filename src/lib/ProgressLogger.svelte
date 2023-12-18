@@ -34,9 +34,9 @@
       const unlistenProgress = await listen(
         EVENT_COPY_PROGRESS_DONE,
         (event: Event<CopyProgressEvent>) => {
-          const { file_name: filename } = event.payload;
+          const { fileName, destination } = event.payload;
 
-          lines.update((prev) => [...prev, `Copied ${filename}`]);
+          lines.update((prev) => [...prev, `Copied ${fileName} to "${destination}"`]);
 
           requestAnimationFrame(() => scrollIntoView('last-item'));
         }

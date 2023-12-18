@@ -68,6 +68,8 @@ async fn process_file(
         "copy_progress_done",
         CopyProgressEvent {
             file_name: final_path.file_name().unwrap().to_str().unwrap().to_owned(),
+            destination: final_path.to_str().unwrap().to_owned(),
+            source: original_path.to_str().unwrap().to_owned(),
         },
     ) {
         log::error!("failed to emit copy_progress_done event: {}", err);

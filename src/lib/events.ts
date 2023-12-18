@@ -3,5 +3,7 @@ export const EVENT_COPY_START = 'copy_start';
 export const EVENT_COPY_FINISHED = 'copy_finished';
 
 export interface CopyProgressEvent {
-    file_name: string;
+    fileName: string;
+    source: string;
+    destination: string;
 }
